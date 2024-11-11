@@ -45,17 +45,17 @@ contract Payment {
         s_registry = _newRegistry;
     }
 
-    function registerWithFee(address user, bytes32 namehash) external payable checkBalance {
+    function registerWithFee(address user, bytes32 namehash, string memory _uri) external payable checkBalance {
         (bool success,) = address(this).call{value: s_feeAmt}("");
         if (success) {
-            IRegistry(s_registry).register(user, namehash);
+            IRegistry(s_registry).register(user, namehash, _uri);
         } else {
             revert Payment__ErrorOccured();
         }
     }
 
-    function resgisterWithoutFee(address user, bytes32 namehash) external {
-        IRegistry(s_registry).register(user, namehash);
+    function resgisterWithoutFee(address user, bytes32 namehash, string memory _uri) external {
+        IRegistry(s_registry).register(user, namehash, _uri);
     }
 
     receive() external payable {}
