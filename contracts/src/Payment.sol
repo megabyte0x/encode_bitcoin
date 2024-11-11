@@ -1,0 +1,63 @@
+// SPDX-Content-Identifier: MIT
+pragma solidity 0.8.25;
+
+import {IRegistry} from "./interface/IRegistry.sol";
+
+contract Payment {
+    error Payment__LowBalance();
+    error Payment__ErrorOccured();
+    error Payment__UnauthorisedAccess();
+
+    event Payment__FeeChanged(uint256 oldFee, uint256 newFee);
+    event Payment__RegistryChanged(address oldRegistry, address newRegistry);
+
+    uint256 s_feeAmt = 1e15;
+    address s_registry;
+    address s_ccConfirmation;
+
+    constructor(address _registry, address _ccConfirmation) {
+        s_registry = _registry;
+        s_ccConfirmation = _ccConfirmation;
+    }
+
+    modifier checkBalance() {
+        if (msg.sender.balance <= s_feeAmt) {
+            revert Payment__LowBalance();
+        }
+        _;
+    }
+
+    modifier checkAuthorisation() {
+        if (msg.sender != s_ccConfirmation) {
+            revert Payment__UnauthorisedAccess();
+        }
+        _;
+    }
+
+    function setFee(uint256 newFeeAmt) private {
+        emit Payment__FeeChanged(s_feeAmt, newFeeAmt);
+        s_feeAmt = newFeeAmt;
+    }
+
+    function setRegistry(address _newRegistry) private {
+        emit Payment__RegistryChanged(s_registry, _newRegistry);
+
+        s_registry = _newRegistry;
+    }
+
+    function registerWithFee(address user, bytes32 namehash) external payable checkBalance {
+        (bool success,) = address(this).call{value: s_feeAmt}("");
+        if (success) {
+            IRegistry(s_registry).register(user, namehash);
+        } else {
+            revert Payment__ErrorOccured();
+        }
+    }
+
+    function resgisterWithoutFee(address user, bytes32 namehash) external {
+        IRegistry(s_registry).register(user, namehash);
+    }
+
+    receive() external payable {}
+    fallback() external payable {}
+}
