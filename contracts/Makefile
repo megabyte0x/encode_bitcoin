@@ -106,6 +106,9 @@ setPaymentHandler:
 setRegistry:
 	@forge script script/interactions/Payment_i.s.sol:SetRegistry $(NETWORK_ARGS)
 
+resgisterWithoutFee:
+	@forge script script/interactions/Payment_i.s.sol:RegisterWithoutFee $(NETWORK_ARGS)
+
 deployDAB:
 	@forge script script/DeployDAB.s.sol:DeployDAB $(NETWORK_ARGS)
 
