@@ -1,66 +1,13 @@
-## Foundry
+Cit: 0x6C27b8604e7DAe0D7e319a9C45006BAd71EaB7a9.
+Registry: 0x92849e472D2c5204ef666e18a7a839e424a61977
+Payment: 0x1b8457C737829d4e6cedca52Ab14AC892bbF58AD
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+```make deployCit ARGS="--network citreaTestnet"```
 
-Foundry consists of:
+```make deployRegistry ARGS="--network citreaTestnet"```
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+```make deployPayment  ARGS="--network citreaTestnet"```
 
-## Documentation
+```make setPaymentHandler ARGS="--network citreaTestnet"```
 
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
-```
-
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+```~~make setRegistry ARGS="--network citreaTestnet"~~```

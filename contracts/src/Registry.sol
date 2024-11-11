@@ -17,9 +17,8 @@ contract Registry is IRegistry {
     address owner;
     address s_cit;
 
-    constructor(address _paymentHandler, address _cit) {
-        s_paymentHandler = _paymentHandler;
-        owner = msg.sender;
+    constructor(address _cit, address _owner) {
+        owner = _owner;
         s_cit = _cit;
     }
 

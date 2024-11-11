@@ -85,10 +85,26 @@ ifeq ($(findstring --network gnosis,$(ARGS)),--network gnosis)
 	NETWORK_ARGS := --rpc-url $(GNOSIS_RPC_URL) --private-key $(PRIVATE_KEY) --broadcast --verify --etherscan-api-key $(GONSIS_SCAN_API_KEY) 
 endif
 
+ifeq ($(findstring --network citreaTestnet,$(ARGS)),--network citreaTestnet)
+	NETWORK_ARGS := --rpc-url $(CITREA_TESTNET_RPC_URL) --private-key $(PRIVATE_KEY) --broadcast --verify --verifier blockscout --verifier-url https://explorer.testnet.citrea.xyz//api?
+endif
+
 # Commands for Local
 
-deployBasicUSDC: 
-	@forge script script/DeployBasicUSDC.s.sol:DeployBasicUSDC $(NETWORK_ARGS)
+deployCit: 
+	@forge script script/DeployCit.s.sol:DeployCit $(NETWORK_ARGS)
+
+deployRegistry: 
+	@forge script script/DeployRegistry.s.sol:DeployRegistry $(NETWORK_ARGS)
+
+deployPayment: 
+	@forge script script/DeployPayment.s.sol:DeployPayment $(NETWORK_ARGS)
+
+setPaymentHandler: 
+	@forge script script/interactions/Registry_i.s.sol:SetPaymentHandler $(NETWORK_ARGS)
+
+setRegistry:
+	@forge script script/interactions/Payment_i.s.sol:SetRegistry $(NETWORK_ARGS)
 
 deployDAB:
 	@forge script script/DeployDAB.s.sol:DeployDAB $(NETWORK_ARGS)

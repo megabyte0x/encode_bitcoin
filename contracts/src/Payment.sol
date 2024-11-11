@@ -15,9 +15,8 @@ contract Payment {
     address s_registry;
     address s_ccConfirmation;
 
-    constructor(address _registry, address _ccConfirmation) {
+    constructor(address _registry) {
         s_registry = _registry;
-        s_ccConfirmation = _ccConfirmation;
     }
 
     modifier checkBalance() {
@@ -39,7 +38,7 @@ contract Payment {
         s_feeAmt = newFeeAmt;
     }
 
-    function setRegistry(address _newRegistry) private {
+    function setRegistry(address _newRegistry) external {
         emit Payment__RegistryChanged(s_registry, _newRegistry);
 
         s_registry = _newRegistry;
