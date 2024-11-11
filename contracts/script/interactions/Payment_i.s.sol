@@ -47,3 +47,25 @@ contract RegisterWithoutFee is Script {
         resgisterWithoutFeeUsingConfigs();
     }
 }
+
+contract RegisterWithFee is Script {
+    function resgisterWithFee(address _payment, address _user, bytes32 _namehash, string memory _uri) public {
+        vm.startBroadcast();
+        Payment payment = Payment(payable(_payment));
+        payment.registerWithFee(_user, _namehash, _uri);
+        vm.stopBroadcast();
+    }
+
+    function resgisterWithFeeUsingConfigs() public {
+        HelperConfig helperConfig = new HelperConfig();
+        address payment = helperConfig.getPayment(block.chainid);
+        address user = 0xdDCc06f98A7C71Ab602b8247d540dA5BD8f5D2A2;
+        bytes32 namehash = 0x95d23ae9f8ae2d62890bbd9514717f5752f83db3a2fec15b9174ce89e02680b3; //megabyte0x.eth
+        string memory _uri = "";
+        resgisterWithFee(payment, user, namehash, _uri);
+    }
+
+    function run() public {
+        resgisterWithFeeUsingConfigs();
+    }
+}

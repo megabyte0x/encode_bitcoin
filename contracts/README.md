@@ -27,3 +27,7 @@ make setPaymentHandler ARGS="--network citreaTestnet"
 ```
 make resgisterWithoutFee ARGS="--network citreaTestnet"
 ```
+
+```
+make resgisterWithFee ARGS="--network citreaTestnet"
+```

@@ -57,6 +57,15 @@ contract Payment {
         IRegistry(s_registry).register(user, namehash, _uri);
     }
 
+    function withdraw() public payable {
+        if (address(this).balance > 0) {
+            (bool success,) = msg.sender.call{value: address(this).balance}("");
+            if (!success) {
+                revert Payment__ErrorOccured();
+            }
+        }
+    }
+
     receive() external payable {}
     fallback() external payable {}
 }

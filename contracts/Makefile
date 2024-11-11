@@ -109,6 +109,9 @@ setRegistry:
 resgisterWithoutFee:
 	@forge script script/interactions/Payment_i.s.sol:RegisterWithoutFee $(NETWORK_ARGS)
 
+resgisterWithFee:
+	@forge script script/interactions/Payment_i.s.sol:RegisterWithFee $(NETWORK_ARGS)
+
 deployDAB:
 	@forge script script/DeployDAB.s.sol:DeployDAB $(NETWORK_ARGS)
 
