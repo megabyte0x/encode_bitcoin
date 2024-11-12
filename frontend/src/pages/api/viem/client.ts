@@ -1,4 +1,5 @@
 import { createPublicClient, createWalletClient, http } from 'viem'
+import { mainnet } from 'viem/chains';
 
 const CITREA_TESTNET = {
     name: 'Citrea Testnet',
@@ -22,8 +23,13 @@ const CITREA_TESTNET = {
     }
 };
 
-export const client = createPublicClient({
+export const publicClient = createPublicClient({
     chain: CITREA_TESTNET,
+    transport: http('https://rpc.testnet.citrea.xyz'),
+});
+
+export const ethPublicClient = createPublicClient({
+    chain: mainnet,
     transport: http(),
 });
 
