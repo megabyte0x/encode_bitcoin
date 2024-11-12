@@ -2,6 +2,8 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import type { GetServerSideProps, NextPage } from "next";
 import { getServerSession } from "next-auth";
 import { getAuthOptions } from "../pages/api/auth/[...nextauth]";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   return {
@@ -24,12 +26,19 @@ export default function WalletConnect() {
           authenticationStatus,
           mounted,
         }) => {
+          const router = useRouter();
           const ready = mounted && authenticationStatus !== "loading";
           const connected =
             ready &&
             account &&
             chain &&
             (!authenticationStatus || authenticationStatus === "authenticated");
+
+          useEffect(() => {
+            if (connected) {
+              router.push("/ens");
+            }
+          }, [connected]);
 
           return (
             <div
