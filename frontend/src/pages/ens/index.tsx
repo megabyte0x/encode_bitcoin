@@ -12,6 +12,7 @@ const EnsPage: NextPage = () => {
   const [loadingMint, setLoadingMint] = useState(false);
 
   const address = "0x2Acdf6a2f893687CcD341a1Ad7e27102b665d8c4";
+  const freeMintAddress = "2Acdf6a2f893687CcD341a1Ad7e27102b665d8c4";
 
   //@ts-ignore
   useEffect(() => {
@@ -26,11 +27,19 @@ const EnsPage: NextPage = () => {
     }
   }, []);
 
-  const handleMint = async () => {
-    setLoadingMint(true);
-    await FreeMint(address, "Megabyte.cit", "");
-    setLoadingMint(false);
-    router.push("/mint");
+  const handleMint = () => {
+    try {
+      setLoadingMint(true);
+      setTimeout(async () => {
+        const minted = await FreeMint(freeMintAddress, "Megabyte.cit", "");
+        setLoadingMint(false);
+        if (minted) {
+          router.push("/mint");
+        }
+      }, 10000);
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   if (loading) {
