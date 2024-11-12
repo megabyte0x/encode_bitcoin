@@ -20,7 +20,6 @@ import { CustomAvatar } from "../components/CustomAvatar";
 
 import Header from "../components/Header";
 
-
 const getSiweMessageOptions: GetSiweMessageOptions = () => ({
   statement: "Sign in to the RainbowKit",
 });
@@ -33,7 +32,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       <SessionProvider refetchInterval={0} session={pageProps.session}>
         <QueryClientProvider client={client}>
           <RainbowKitSiweNextAuthProvider>
-            <RainbowKitProvider avatar={CustomAvatar}{...client}>
+            <RainbowKitProvider avatar={CustomAvatar} {...client}>
+              <Header />
               <Component {...pageProps} />
             </RainbowKitProvider>
           </RainbowKitSiweNextAuthProvider>
