@@ -16,6 +16,7 @@ import {
 } from "@rainbow-me/rainbowkit-siwe-next-auth";
 
 import { config } from "../wagmi";
+import Header from "../components/Header";
 
 const getSiweMessageOptions: GetSiweMessageOptions = () => ({
   statement: "Sign in to the RainbowKit",
@@ -30,6 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <QueryClientProvider client={client}>
           {/* <RainbowKitSiweNextAuthProvider> */}
           <RainbowKitProvider {...client}>
+            <Header />
             <Component {...pageProps} />
           </RainbowKitProvider>
           {/* </RainbowKitSiweNextAuthProvider> */}
