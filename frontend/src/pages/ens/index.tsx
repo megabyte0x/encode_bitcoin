@@ -3,20 +3,21 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import megabyte from "../../../public/megabyte.png";
 import { useRouter } from "next/navigation";
-// import { getENSName } from "../api/viem/getENS";
+import { getENSName } from "../api/viem/getENS";
+import FreeMint from "../mint/freeMint";
 
 const EnsPage: NextPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
 
-//   const address = "0x2Acdf6a2f893687CcD341a1Ad7e27102b665d8c4";
-//   const ifHaveEns = getENSName(address);
+  const address = "0x2Acdf6a2f893687CcD341a1Ad7e27102b665d8c4";
+  const ifHaveEns = getENSName(address);
 
-//   useEffect(() => {
-//     if (ifHaveEns) {
-//       setLoading(false);
-//     }
-//   }, [ifHaveEns]);
+  useEffect(() => {
+    if (ifHaveEns) {
+      setLoading(false);
+    }
+  }, [ifHaveEns]);
 
   if (loading) {
     return (
