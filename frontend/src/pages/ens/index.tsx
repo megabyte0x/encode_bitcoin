@@ -9,15 +9,29 @@ import FreeMint from "../mint/freeMint";
 const EnsPage: NextPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [loadingMint, setLoadingMint] = useState(false);
 
   const address = "0x2Acdf6a2f893687CcD341a1Ad7e27102b665d8c4";
-  const ifHaveEns = getENSName(address);
 
+  //@ts-ignore
   useEffect(() => {
-    if (ifHaveEns) {
-      setLoading(false);
+    try {
+      const ifHaveEns = getENSName(address);
+      if (true) {
+        // ifhaveens => true
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log("Error:", error);
     }
-  }, [ifHaveEns]);
+  }, []);
+
+  const handleMint = async () => {
+    setLoadingMint(true);
+    await FreeMint(address, "Megabyte.cit", "");
+    setLoadingMint(false);
+    router.push("/mint");
+  };
 
   if (loading) {
     return (
@@ -51,10 +65,21 @@ const EnsPage: NextPage = () => {
               Megabyte.eth
             </h1>
             <button
-              onClick={() => router.push("/mint")}
+              onClick={handleMint}
               className="helvetica relative rounded-2xl bg-gradient-to-b from-[#F4BC8D] to-[#FFE6B7] px-16 py-2"
             >
-              Mint .cit
+              {loadingMint ? (
+                <div className="animate-spin">
+                  <Image
+                    src="./loader.svg"
+                    alt="loader"
+                    width={20}
+                    height={20}
+                  />
+                </div>
+              ) : (
+                "Mint .cit"
+              )}
             </button>
           </div>
         </div>
