@@ -17,9 +17,7 @@ export default function Hero() {
         </p>
       </div>
       <div>
-        <button className="">
-          <WalletConnect />
-        </button>
+        <WalletConnect />
         <div className="absolute -bottom-8 -right-14">
           <div className="relative">
             <Image src="./arrow.svg" alt="arrow" width={40} height={40} />
