@@ -2,6 +2,8 @@
 
 Cit is the **Citrea Naming Service.**
 
+![](./banner.png)
+
 ## Steps to Claim your `.cit` name
 
 ### If you have ENS name set on your EVM address
