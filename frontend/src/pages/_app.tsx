@@ -8,7 +8,6 @@ import { WagmiProvider } from "wagmi";
 import { RainbowKitProvider } from "@rainbow-me/rainbowkit";
 
 import { SessionProvider } from "next-auth/react";
-import type { Session } from "next-auth";
 
 import {
   RainbowKitSiweNextAuthProvider,
@@ -16,6 +15,7 @@ import {
 } from "@rainbow-me/rainbowkit-siwe-next-auth";
 
 import { config } from "../wagmi";
+import { CustomAvatar } from "../components/CustomAvatar";
 
 const getSiweMessageOptions: GetSiweMessageOptions = () => ({
   statement: "Sign in to the RainbowKit",
@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <SessionProvider refetchInterval={0} session={pageProps.session}>
         <QueryClientProvider client={client}>
           <RainbowKitSiweNextAuthProvider>
-            <RainbowKitProvider {...client}>
+            <RainbowKitProvider avatar={CustomAvatar}{...client}>
               <Component {...pageProps} />
             </RainbowKitProvider>
           </RainbowKitSiweNextAuthProvider>
