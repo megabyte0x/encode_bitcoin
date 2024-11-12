@@ -2,7 +2,7 @@ import { useState } from "react";
 import { walletClient } from "../api/viem/client";
 import { PaymentContract } from "../../abi/Payment";
 import { parseAbi } from "viem";
-import { publicClient } from "../../wagmi";
+import { publicClient } from "../api/viem/client"
 import { getNamehash } from "../api/viem/getENS";
 
 async function FreeMint(
@@ -12,7 +12,8 @@ async function FreeMint(
 ): Promise<`0x${string}` | undefined> {
   const [account] = await walletClient.getAddresses();
   let _namehash = getNamehash(ensName);
-  let _request;
+  let hash;
+
   try {
     // const hash = await walletClient.writeContract({
     //     account,
@@ -21,25 +22,20 @@ async function FreeMint(
     //     functionName: 'registerWithoutFee',
     //     args: [user_address, namehash, uri],
     // });
-    const { request } = await publicClient.simulateContract({
-      address: `0x${PaymentContract.address}`,
+    const request = await publicClient.prepareTransactionRequest({
+      to: `0x${PaymentContract.address}`,
       abi: parseAbi(["function registerWithoutFee(address, bytes32, string)"]),
       functionName: "registerWithoutFee",
       args: [`0x${user_address}`, _namehash, uri],
       account: account,
     });
-    _request = request;
+    const serializedTransaction = await walletClient.signTransaction({ ...request, account })
+    hash = await walletClient.sendRawTransaction({ serializedTransaction });
+
   } catch (e) {
     console.error(e);
   }
-  let hash;
-  try {
-    if (_request) {
-      hash = await walletClient.writeContract(_request);
-    }
-  } catch (e) {
-    console.error(e);
-  }
+
 
   return hash;
 }
