@@ -28,11 +28,11 @@ function MyApp({ Component, pageProps }: AppProps) {
     <WagmiProvider config={config}>
       <SessionProvider refetchInterval={0} session={pageProps.session}>
         <QueryClientProvider client={client}>
-          {/* <RainbowKitSiweNextAuthProvider> */}
-          <RainbowKitProvider {...client}>
-            <Component {...pageProps} />
-          </RainbowKitProvider>
-          {/* </RainbowKitSiweNextAuthProvider> */}
+          <RainbowKitSiweNextAuthProvider>
+            <RainbowKitProvider {...client}>
+              <Component {...pageProps} />
+            </RainbowKitProvider>
+          </RainbowKitSiweNextAuthProvider>
         </QueryClientProvider>
       </SessionProvider>
     </WagmiProvider>
