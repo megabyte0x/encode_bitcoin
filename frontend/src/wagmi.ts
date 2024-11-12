@@ -18,7 +18,7 @@ export const citrea = {
   },
 } as const satisfies Chain;
 
-const projectId = process.env.WALLET_CONNECT_PROJECT_ID ? process.env.WALLET_CONNECT_PROJECT_ID : ""
+const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID ? process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID : ""
 
 export const config = getDefaultConfig({
   appName: "RainbowKit App",
