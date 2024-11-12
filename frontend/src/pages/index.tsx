@@ -16,7 +16,7 @@ const Home: NextPage = () => {
   return (
     <div className="h-screen">
       <Hero />
-      <ConnectButton />
+      <ConnectButton accountStatus={"address"} showBalance={false} label="Connect" chainStatus={"icon"} />
     </div>
   );
 };

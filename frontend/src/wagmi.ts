@@ -1,11 +1,7 @@
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
 import { publicActions } from "viem";
 import {
-  arbitrum,
-  base,
   mainnet,
-  optimism,
-  polygon,
   sepolia,
 } from "wagmi/chains";
 import { type Chain } from "viem";
@@ -22,20 +18,18 @@ export const citrea = {
   },
 } as const satisfies Chain;
 
+const projectId = process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID ? process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID : ""
+
 export const config = getDefaultConfig({
   appName: "RainbowKit App",
-  projectId: "1942aa0c8d0eed4eb2b15c14453c2e27",
+  projectId: projectId,
   chains: [
     mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    base,
     ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === "true"
       ? [citrea, sepolia]
       : []),
   ],
-  ssr: true,
+  ssr: true
 });
 
 export const publicClient = config.getClient().extend(publicActions);
